@@ -32,14 +32,3 @@ interaction = client.interactions.create(
 )
 
 print(interaction.output_text)
-
-# Using generate_content
-
-# chat = client.chats.create(
-#     model="gemini-3.7-flash" # Pass your tools configuration here if applicable
-# )
-
-# response = chat.send_message("Explain how AI works in a few words")
-# print(response.text)
-
-
