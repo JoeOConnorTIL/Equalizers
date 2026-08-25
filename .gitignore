@@ -1,3 +1,10 @@
+# Duckdb files
+*.duckdb
+
+#logs
+*.log
+logs/
+
 # Data 
 sample_data/
 data/
