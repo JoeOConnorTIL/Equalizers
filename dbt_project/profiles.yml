@@ -3,11 +3,13 @@ dbt_project:
     dev:
       type: duckdb
       path: "md:my_db?motherduck_token={{ env_var('DBT_ENV_SECRET_MOTHERDUCK_TOKEN') }}"
+      schema: development
       threads: 4
 
     prod:
       type: duckdb
-      path: prod.duckdb
+      path: "md:my_db?motherduck_token={{ env_var('DBT_ENV_SECRET_MOTHERDUCK_TOKEN') }}"
+      schema: production
       threads: 4
 
   target: dev
