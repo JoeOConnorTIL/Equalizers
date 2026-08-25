@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-motherduck_token= os.getenv('MOTHERDUCK_DB_TOKEN')
+motherduck_token= os.getenv('MOTHERDUCK_TOKEN')
 
 con = duckdb.connect(f'md:?motherduck_token={motherduck_token}')
 
