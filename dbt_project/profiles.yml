@@ -2,7 +2,7 @@ dbt_project:
   outputs:
     dev:
       type: duckdb
-      path: "md:my_db"
+      path: "md:my_db?motherduck_token={{ env_var('DBT_ENV_SECRET_MOTHERDUCK_TOKEN') }}"
       threads: 4
 
     prod:

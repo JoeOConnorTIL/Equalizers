@@ -30,5 +30,7 @@ clean-targets: # directories to be removed by `dbt clean`
 models:
   dbt_project:
     # Config indicated by + and applies to all files under models/example/
-    example:
+    raw:
       +materialized: view
+flags:
+  require_generic_test_arguments_property: true
