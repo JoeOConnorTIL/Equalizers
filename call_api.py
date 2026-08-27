@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 base_url = "https://v3.football.api-sports.io/"
 endpoint= "fixtures"
 league_id= '39'
-season = '2026'
+season = '2024'
+status = 'FT'
 
 load_dotenv()
 FOOTBALL_API_KEY=os.getenv('FOOTBALL_API_KEY')
@@ -17,7 +18,7 @@ headers = {
   'x-apisports-key': FOOTBALL_API_KEY,
 }
 
-response = requests.request("GET", f'{base_url}{endpoint}?league={league_id}&season={season}', headers=headers, data=payload)
+response = requests.request("GET", f'{base_url}{endpoint}?league={league_id}&season={season}&status={status}', headers=headers, data=payload)
 
 data = response.text
 
