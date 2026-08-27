@@ -1,5 +1,7 @@
 # Duckdb files
 *.duckdb
+*.vscode
+.vscode/
 
 #logs
 *.log
@@ -7,6 +9,7 @@ logs/
 
 # Data 
 sample_data/
+
 data/
 
 # Byte-compiled / optimized / DLL files
