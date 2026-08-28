@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 base_url = "https://v3.football.api-sports.io/"
 endpoint= "fixtures"
 league_id= '39'
-season = '2024'
+season = '2023'
 status = 'FT'
 
 load_dotenv()
