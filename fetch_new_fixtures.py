@@ -17,29 +17,47 @@ logger=logging.getLogger()
 load_dotenv()
 FOOTBALL_API_KEY=os.getenv('FOOTBALL_API_KEY')
 
-def extract_new_fixtures(new_matches:list):
+def extract_new_fixtures(new_matches:list, max_retry=3):
+
+  logger.info('Starting extraction for new fixtures')
 
   payload={}
   headers = {
     'x-apisports-key': FOOTBALL_API_KEY,
   }
 
+  data_dir= f'data/fixtures'
+  os.makedirs(data_dir, exist_ok=True)
+
   if len(new_matches) == 0:
     logger.info('No new matches have been completed, ending script')
     return
 
   for match in new_matches:
-    
-    response = requests.request("GET", f'{base_url}fixtures?&id={match}', headers=headers, data=payload)
 
-    data = response.text
+    attempt = 0
 
-    data_dir= f'data/fixtures'
-    os.makedirs(data_dir, exist_ok=True)
-    filename = f"{data_dir}/test_fixtures_{str(match)}.json"
+    while attempt <= max_retry:
+      
+        response = requests.request("GET", f'{base_url}fixtures?&id={match}', headers=headers, data=payload)
 
-    with open(filename, "w") as f:
-        f.write(data)
+        status=response.status_code
+        errors=response.errors
+
+        data = response.text
+
+        filename = f"{data_dir}/test_fixtures_{str(match)}.json"
+
+        if status == 200:
+                   
+          try:
+            with open(filename, "w") as f:
+                f.write(data)
+
+          except Exception as e:
+            logger.error(f'Error saving new fixtures: {e}')
+
+        elif status 
 
 
 extract_new_fixtures(new_matches)
