@@ -32,3 +32,10 @@ logger.info('Logger Successfully Initiated')
 A = game_ids_already_loaded(schema, endpoint)
 # Listing all completed fixtures this season
 B = matches_completed(season, status, league_id, endpoint)
+# Fixtures which are completed but not in our database yet
+new_games= list(set(B) - set(A))
+
+
+print (A)
+print (B)
+print (new_games)
