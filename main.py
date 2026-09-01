@@ -7,6 +7,7 @@ from datetime import datetime, timedelta, timezone
 from logger import initiate_log
 import requests
 from matches_completed import matches_completed
+from fetch_new_fixtures import extract_new_fixtures
 
 # Setting variables
 load_dotenv()
@@ -35,7 +36,8 @@ B = matches_completed(season, status, league_id, endpoint)
 # Fixtures which are completed but not in our database yet
 new_games= list(set(B) - set(A))
 
+extract_new_fixtures(new_games, 4)
 
-print (A)
-print (B)
-print (new_games)
+# print (A)
+# print (B)
+# print (new_games)

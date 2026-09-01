@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import logging
+import time
 
 # Premier League is league # 39, Season is defined by the year it starts in i.e. 2026 for 2026/27
 
@@ -12,8 +13,6 @@ season = '2023'
 status = 'FT'
 new_matches = [1035037, 1035038, 1035039, 1035041]
 logger=logging.getLogger()
-
-
 load_dotenv()
 FOOTBALL_API_KEY=os.getenv('FOOTBALL_API_KEY')
 
@@ -36,13 +35,13 @@ def extract_new_fixtures(new_matches:list, max_retry=3):
   for match in new_matches:
 
     attempt = 0
+    delay = 2
 
     while attempt <= max_retry:
       
         response = requests.request("GET", f'{base_url}fixtures?&id={match}', headers=headers, data=payload)
 
         status=response.status_code
-        errors=response.errors
 
         data = response.text
 
@@ -55,9 +54,22 @@ def extract_new_fixtures(new_matches:list, max_retry=3):
                 f.write(data)
 
           except Exception as e:
-            logger.error(f'Error saving new fixtures: {e}')
+            logger.error(f'Error saving new fixture {match}: {e}')
+            break
 
-        elif status 
+        elif status == 204:
+           errors=response.errors
+           logger.error(f'Error: match id {match} - {errors}')
+           break
+
+        else:
+          if attempt == max_retry:
+             logger.info(f'Response status: {status} - Max retries exceeded - inspect error.')
+             break
+          else:
+            logger.info(f'Response status: {status} - attempt {attempt}, retrying.')
+            attempt += 1
+            time.sleep(delay*attempt)
 
 
-extract_new_fixtures(new_matches)
+        
