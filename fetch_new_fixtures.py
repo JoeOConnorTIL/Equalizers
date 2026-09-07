@@ -52,6 +52,8 @@ def extract_new_fixtures(new_matches:list, max_retry=3):
           try:
             with open(filename, "w") as f:
                 f.write(data)
+                time.sleep(6)
+                break
 
           except Exception as e:
             logger.error(f'Error saving new fixture {match}: {e}')
