@@ -29,13 +29,11 @@ def game_ids_already_loaded(schema='development', endpoint='fixtures'):
             )
         elif endpoint == 'statistics':
             fixture_ids= (
-                con.execute(f"""select parameters['fixture'] as id from {schema}.{endpoint}_raw""")
+                con.execute(f"""select CAST(parameters['fixture'] AS INTEGER) as id from {schema}.{endpoint}_raw""")
                 .df()['id']
                 .tolist()
             )
-        logger.info('Existing fixture ids fetched')
-
-        print(fixture_ids)
+        logger.info(f'Existing {endpoint} list fetched')
         return(fixture_ids)
     
     except Exception as  e: 
