@@ -68,7 +68,3 @@ def extract_new_statistics(new_matches:list, max_retry=3):
             logger.info(f'Response status: {status} - attempt {attempt}, retrying.')
             attempt += 1
             time.sleep(delay*attempt)
-
-
-        
-extract_new_statistics(new_matches, 3)
