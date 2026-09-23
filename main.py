@@ -30,13 +30,17 @@ logger = initiate_log(timestamp, log_dir, 'equalizers')
 logger.info('Logger Successfully Initiated')
 
 # Listing Fixtures already loaded to database
-A = game_ids_already_loaded(schema, endpoint)
+A = game_ids_already_loaded(schema, 'fixtures')
 # Listing all completed fixtures this season
 B = matches_completed(season, status, league_id, endpoint)
 # Fixtures which are completed but not in our database yet
-new_games= list(set(B) - set(A))
+new_fixtures= list(set(B) - set(A))
 
-extract_new_fixtures(new_games, 4)
+extract_new_fixtures(new_fixtures, 4)
+
+C = game_ids_already_loaded(schema, 'statistics')
+
+new_statistics= list(set(B) - set(C))
 
 # print (A)
 # print (B)

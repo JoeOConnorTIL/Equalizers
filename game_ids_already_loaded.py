@@ -21,13 +21,21 @@ def game_ids_already_loaded(schema='development', endpoint='fixtures'):
 
     try:
 
-        fixture_ids= (
-            con.execute(f"""select unnest(response)['fixture']['id'] as id from {schema}.{endpoint}_raw""")
-            .df()['id']
-            .tolist()
-        )
+        if endpoint == 'fixtures':
+            fixture_ids= (
+                con.execute(f"""select unnest(response)['fixture']['id'] as id from {schema}.{endpoint}_raw""")
+                .df()['id']
+                .tolist()
+            )
+        elif endpoint == 'statistics':
+            fixture_ids= (
+                con.execute(f"""select parameters['fixture'] as id from {schema}.{endpoint}_raw""")
+                .df()['id']
+                .tolist()
+            )
         logger.info('Existing fixture ids fetched')
 
+        print(fixture_ids)
         return(fixture_ids)
     
     except Exception as  e: 
