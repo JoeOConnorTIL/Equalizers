@@ -17,7 +17,6 @@ def upload_to_db(target_dir = "./data", database = 'my_db', schema = 'developmen
         raw_table=f'{folder.name}_raw'
         if folder.is_dir():
             table_name = f"{database}.{schema}.{folder.name}_raw"
-            print(f"Table: {table_name}")
             table_exists = bool(
                 con.sql(f"""
                 SELECT 1 
@@ -27,14 +26,14 @@ def upload_to_db(target_dir = "./data", database = 'my_db', schema = 'developmen
                 AND table_name = '{raw_table}'
                 """).fetchone()
             )
-            print(f"Table: {table_name}")
-            print(f'Table Exists?: {table_exists}')
+            logger.info(f"Table: {table_name}")
+            logger.info(f'Table Exists?: {table_exists}')
             if table_exists:
-                print('table exists, uploading files')
+                logger.info('table exists, uploading files')
                 # Upload data to table
                 for file_path in folder.rglob("*.json"):
                     if file_path.is_file():
-                        print(f"  File: {file_path}")
+                        logger.info(f" Working through file: {file_path}")
                         try:
                             con.execute(f"""
                             INSERT INTO {database}.{schema}.{folder.name}_raw
@@ -46,7 +45,7 @@ def upload_to_db(target_dir = "./data", database = 'my_db', schema = 'developmen
                         except Exception as e:
                             logger.error(f'Error loading {file_path} to database: {e}')
             else:
-                print('table does not yet exist, creating table')
+                logger.info('table does not yet exist, creating table')
                 try:
                     con.execute(f"""
                     CREATE TABLE IF NOT EXISTS {database}.{schema}.{folder.name}_raw AS
@@ -56,4 +55,4 @@ def upload_to_db(target_dir = "./data", database = 'my_db', schema = 'developmen
                     os.remove(folder)
                 except Exception as e:
                     logger.error(f'Error creating table: {e}')
-                    print(f'Error creating table: {e}')
+                    logger.error(f'Error creating table: {e}')

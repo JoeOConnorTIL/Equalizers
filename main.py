@@ -9,6 +9,7 @@ import requests
 from matches_completed import matches_completed
 from fetch_new_fixtures import extract_new_fixtures
 from fetch_new_statistics import extract_new_statistics
+from upload_to_db import upload_to_db
 
 # Setting variables
 load_dotenv()
@@ -60,3 +61,5 @@ extract_new_statistics(new_statistics, 4)
 # print (C)
 # print('new_statistics')
 # print(new_statistics)
+
+upload_to_db()
