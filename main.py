@@ -9,6 +9,7 @@ import requests
 from matches_completed import matches_completed
 from fetch_new_fixtures import extract_new_fixtures
 from fetch_new_statistics import extract_new_statistics
+from fetch_standings import extract_standings
 from upload_to_db import upload_to_db
 
 # Setting variables
@@ -49,6 +50,9 @@ new_statistics= [1035137, 1035138, 1035139, 1035140, 1035141, 1035142, 1035143, 
 
 # Extracting Statistics
 extract_new_statistics(new_statistics, 4)
+
+# Extracting Standings
+extract_standings(season)
 
 # Testing that lists are working correctly
 # print('List A')
