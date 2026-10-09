@@ -55,4 +55,3 @@ def upload_to_db(target_dir = "./data", database = 'my_db', schema = 'developmen
                     os.remove(folder)
                 except Exception as e:
                     logger.error(f'Error creating table: {e}')
-                    logger.error(f'Error creating table: {e}')
