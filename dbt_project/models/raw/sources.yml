@@ -1,6 +1,35 @@
 version: 2
 
 sources:
-  - name: main
+  - name: motherduck
+    database: my_db
+    schema: development
+    description: ""
     tables:
-      - name: test_upload
+      - name: fixtures_raw
+        description: ""
+        columns:
+          - name: get
+            data_type: varchar
+            description: ""
+          - name: parameters
+            data_type: struct(league varchar, season varchar, status varchar)
+            description: ""
+          - name: errors
+            data_type: json[]
+            description: ""
+          - name: results
+            data_type: bigint
+            description: ""
+          - name: paging
+            data_type: struct("current" bigint, total bigint)
+            description: ""
+          - name: response
+            data_type: struct(fixture struct(id bigint, referee varchar, timezone varchar, date timestamp, "timestamp" bigint, periods struct("first" bigint, "second" bigint), venue struct(id bigint, "name" varchar, city varchar), status struct(long varchar, short varchar, elapsed bigint, extra bigint)), league struct(id bigint, "name" varchar, country varchar, logo varchar, flag varchar, season bigint, round varchar, standings boolean), teams struct(home struct(id bigint, "name" varchar, logo varchar, winner boolean), away struct(id bigint, "name" varchar, logo varchar, winner boolean)), goals struct(home bigint, away bigint), score struct(halftime struct(home bigint, away bigint), fulltime struct(home bigint, away bigint), extratime struct(home json, away json), penalty struct(home json, away json)))[]
+            description: ""
+
+      - name: statistics_raw
+        description: ""
+
+      - name: standings_raw
+        description: ""
