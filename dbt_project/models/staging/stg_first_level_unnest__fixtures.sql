@@ -6,7 +6,7 @@ with source as (
 
 renamed as (
 
-    select
+    select distinct
         -- get,
         -- parameters,
         -- errors,
