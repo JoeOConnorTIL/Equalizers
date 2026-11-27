@@ -1,34 +1,31 @@
 with source as (
+
 Select distinct
     fixture_id,
     unnest(nested_events, recursive:= true)
 from 
 {{ref('stg_second_level_unnest__fixtures')}}
+
 )
-,s2 as (
-
-    select * from source
-
-),
-
+,
 renamed as (
 
     select
         fixture_id,
-        elapsed,
-        extra,
-        id,
-        name,
-        logo,
-        id_1,
-        name_1,
-        id_2,
-        name_2,
-        type,
-        detail,
-        comments
+        elapsed AS game_minute,
+        extra AS added_time,
+        id AS team_id,
+        name AS team_name,
+        -- logo,
+        id_1 AS player_id,
+        name_1 AS player_name,
+        id_2 AS second_player_id,
+        name_2 AS second_player_name,
+        type AS event_type,
+        detail AS event_detail,
+        comments AS extra_detail
 
-    from s2
+    from source
 
 )
 
