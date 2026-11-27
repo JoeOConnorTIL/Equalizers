@@ -3,5 +3,10 @@ with input AS (
 )
 
 select 
-    *
+    get,
+    parameters,
+    errors,
+    results,
+    paging,
+    response
 from input
